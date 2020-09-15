@@ -2,6 +2,9 @@
 
 O objetivo do desafio é desenvolver um modelo capaz de predizer o valor de um determinado imóvel baseado em suas características. O conjunto de dados inicial apresenta 80 características mais uma coluna com o valor de venda do imóvel, que é a coluna-alvo.
 
+## Como Utilizar
+Basta clonar ou fazer o download do repositório, abrir o Jupyter Notebook e executar as células, caso esteja em um Linux ou MacOS. Os dados são lidos do diretório dataset e o resultado final é salvo em formato CSV também no repositório dataset. Caso o sistema operacional for um windows é necessário informar o path de onde o arquivo será lido e o path onde o arquivo será salvo, no Jupyter Notebook.
+
 ## Bibliotecas Utilizadas
 
  - Scikit-learn   : O scikit-learn, ou sklearn, é uma biblioteca de código aberto que possui diversos métodos que são frequentemente utilizados em projetos de machine learning. Nesse desafio, os principais recursos utilizados dessa biblioteca foram os algoritmos clássicos de machine learning (SVM e Random Forest) e as métricas utilizadas para avaliar os modelos
