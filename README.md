@@ -82,3 +82,61 @@ Features numerizadas: 'MSZoning','Street','LotShape','LandContour','Utilities','
 ### Divisão dos dados
 
 Para podermos analisar e melhorar os parâmetros utilizados no regressor, os dados serão separados em conjunto de treino e validação, sendo o conjunto de validação utilizado para fazermos um _tunning_ no modelo. Essa separação é necessária para verificarmos o tradeoff viés-variância antes de aplicarmos o modelo no conjunto de testes. Levando em consideração que temos em mãos um conjunto de dados relativamente grande, retiramos 20% do conjunto de treino para utilizarmos como validação de cada método.
+
+## Regressores
+
+### Redução de dimensionalidade e normalização
+
+Nesta seção é aplicado o algoritmo de redução de dimensionalidade PCA. Ao utilizarmos algoritmos mais simples, como Random Forest e SVM devemos ter cuidado com a quantidade de features, e.g. dimensão, dos nossos dados, pois algumas características podem inserir ruído e acabar por "confundir" o modelo.
+
+O PCA é um algoritmo não-supervisionado que analisa a variância entre cada feature e gera uma transformação linear de forma a maximizar essa variância. Com a variância maximizada, características que não acrescentam ao modelo, ou que prejudicam, são retiradas.
+
+Para selecionar a quantidade de componentes do PCA que utilizaremos, passamos o valor .95, que indica que queremos o número de features que representam 95% da variância da base de dados. Dessa forma, são retornadas 54 features, que são utilizadas para o Rnadom Forest e para o SVM. Como as features geradas pelo PCA são uma combinação de outras características, elas não apresentam um real significa como a features originais.
+
+Para a Rede Neural, devido ao método ser mais robusto e complexo, utilizaremos o conjunto de dados original, com 74 features.
+
+Também é aplicada normalização dos dados do conjunto. a normalização é feita de tal forma que a distribuição de todas as características estejam entre 0 e 1. Como o conjunto apresenta uma variação bem grande na distribuição dos dados, a normalização acaba por facilitar a identificação de determinados padrões pelo modelo. A normalização é feita através da subtração da média e divisão pelo desvio padrão em cada feature separadamente
+
+### Random Forest Regressor
+
+O Random Forest Regressor é um algoritmo de ensemble que utiliza o método de Bagging. Funciona da seguinte forma: o conjunto de dados é separado em vários subconjuntos menores, e cada conjunto desse é independente, ou seja, não possuem dados sobressalentes. Então são contruídas várias árvores profundas e treinadas com diferentes subconjuntos de forma que cada árvore extraia diferentes conceitos de cada subconjunto. Então as árvores são agregadas e a média do resultado de todas as árvores é a saída final do Random Forest
+
+Em geral, um conjunto de regressores fracos apresentam melhor resultado que um único regressor forte.
+
+Foi utilizado o GridSearch Cross-Validation com 10 partições para identificar o conjunto de hiperparâmetros que tem a melhor performance, utilizando RMSE como métrica.
+
+**Os hiperparâmetros definidos através do GridSeatch foram:**
+ - max_depth    : 6;
+ - n_estimators : 100.
+
+### SVM
+
+O SVM, usualmente muito utilizado para classificação, também pode ser utilizado para regressão. Os princípios do algorítmo continuam o mesmo: definir um hiperplano e maximizar a margem entre os dados. O algorítmo apresenta certa aceitação de erros, o que pode prejudicar sua performance em problemas de regressão, já que a saída é em intervalo contínuo e apresenta infinitas possibilidades. O SVM é um modelo muito robusto e na "era" pré Deep Learning era tão usado quanto as redes neurais atualmente, devido a sua capacidade de aprender diversas funções complexas.
+
+Fazemos aqui novamente o uso do GridSearch para encontrarmos os melhores parâmetros possíveis dentro de um espaço de busca pré-definido.
+
+**Os hiperparâmetros definidos através do GridSeatch foram:**
+ - C      : 200
+ - degree : 2
+ - gamma  : 0.25
+ - kernel : sigmoid
+
+### Rede Neural
+
+Um dos maiores passos da computação nesse década, o Deep Learning apresenta robustez maior que os algorítmos de Aprendizagem clássicos apresentados anteriormente. Uma Rede Neural consiste basicamente da tentativa de encontrar o mínimo global do gradiente de uma função de perda. Ela é composta por um número $N$ de camadas e cada camada $N_i$ possui uma quantidade $X_i$ de neurônios e seus respectivos pesos. A rede neural recebe um vetor de features e o resultado baseado na função de ativação que cada camada recebeu. Após isso, é computado o erro utilizando uma função de perda e os pessoas da rede neural são atualizados.
+
+Devido a complexidade e robustez do método, foi utilizado o banco de dados original, sem aplicação do PCA ou Normalização das características.
+
+**O modelo criado para esse problema utiliza:**
+
+    -   4 camadas:
+        -   primeira camada: 30 neurônios; função de ativação: ReLU; Tamanho de entrada: 74 features;
+        -   segunda camada: 15 neurônios; função de ativação: ReLU;
+        -   terceira camada: 20 neurônios; função de ativação: ReLU;
+        -   camada de saída: 1 neurônios; função de ativação: Linear.
+    -   função de perda: Mean Squared Error;
+    -   otimizador: adam;
+    -   métricas utilizadas: Mean Absolute Error, Mean Squared Logarithmic Error;
+    -   Épocas: 1000;
+    -   Batch Size: 10;
+    -   Conjunto de Validação: 20% do conjunto original.
