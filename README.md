@@ -20,7 +20,7 @@ Não esqueça de instalar todas as bibliotecas antes.
 
 ## Tratamento dos dados
 
-O conjunto apresenta alguns atributos com valores faltantes e agluns atributos com valores nominais, os quais necessitam ser tratados antes de iniciar qualquer predição. O primeiro passo tomado na solução desenvolvida é tratar os valores faltantes
+O conjunto apresenta alguns atributos com valores faltantes e alguns atributos com valores nominais, os quais necessitam ser tratados antes de iniciar qualquer predição. O primeiro passo tomado na solução desenvolvida é tratar os valores faltantes
 
 ### Missing Values
 
