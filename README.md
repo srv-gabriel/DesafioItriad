@@ -129,14 +129,14 @@ Devido a complexidade e robustez do método, foi utilizado o banco de dados orig
 
 **O modelo criado para esse problema utiliza:**
 
-    -   4 camadas:
-        -   primeira camada: 30 neurônios; função de ativação: ReLU; Tamanho de entrada: 74 features;
-        -   segunda camada: 15 neurônios; função de ativação: ReLU;
-        -   terceira camada: 20 neurônios; função de ativação: ReLU;
-        -   camada de saída: 1 neurônios; função de ativação: Linear.
-    -   função de perda: Mean Squared Error;
-    -   otimizador: adam;
-    -   métricas utilizadas: Mean Absolute Error, Mean Squared Logarithmic Error;
-    -   Épocas: 1000;
-    -   Batch Size: 10;
-    -   Conjunto de Validação: 20% do conjunto original.
+-   4 camadas:
+    -   primeira camada: 30 neurônios; função de ativação: ReLU; Tamanho de entrada: 74 features;
+    -   segunda camada: 15 neurônios; função de ativação: ReLU;
+    -   terceira camada: 20 neurônios; função de ativação: ReLU;
+    -   camada de saída: 1 neurônios; função de ativação: Linear.
+-   função de perda: Mean Squared Error;
+-   otimizador: adam;
+-   métricas utilizadas: Mean Absolute Error, Mean Squared Logarithmic Error;
+-   Épocas: 1000;
+-   Batch Size: 10;
+-   Conjunto de Validação: 20% do conjunto original.
